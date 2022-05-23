@@ -1,22 +1,16 @@
-from functools import wraps
+import decorator
 
 
-def execute_twice_decorator(func):
+@decorator.decorator
+def execute_twice_decorator(func, *args, **kwargs):
     """
-    The function represents a decorator executing a function twice.
-    :param func: A function's object.
-    :return: A wrapper's object.
+    The function receives a function and its arguments and wraps its twice.
+    :param func: A function.
+    :param args: Non Keyword Arguments.
+    :param kwargs: Keyword Arguments.
+    :return: The returned values of the function's execution.
     """
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        """
-        The function returns a tuple of the returned values of the arguments on the function.
-        :param args: Non Keyword Arguments
-        :param kwargs: Keyword Arguments
-        :return: The returned values of the function's execution.
-        """
-        return func(*args, **kwargs), func(*args, **kwargs)
-    return wrapper
+    return func(*args, **kwargs), func(*args, **kwargs)
 
 
 @execute_twice_decorator
